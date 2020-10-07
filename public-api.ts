@@ -13,6 +13,7 @@ export * from './src/methoddecorator/debounce';
 export * from './src/methoddecorator/limit';
 export * from './src/image/lazy-image.directive';
 export * from './src/scroll/bottom-hit.directive';
+export * from './src/visibility/visibility.service';
 
 export * from './src/http/with-credentials-interceptor.service';
 export * from './src/http/url-info';
