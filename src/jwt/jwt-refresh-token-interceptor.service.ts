@@ -1,7 +1,7 @@
 import {HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Inject, Injectable} from '@angular/core';
-import {map, shareReplay, switchMap} from 'rxjs/operators';
+import {catchError, map, shareReplay, switchMap} from 'rxjs/operators';
 import {JwtTokenResponse} from './jwt-token-response';
 import {JwtService} from './jwt.service';
 import {DDR_JWT_REFRESH_TOKEN_URL} from '../ddr-extensions.module';
@@ -46,6 +46,11 @@ export class JwtRefreshTokenInterceptor implements HttpInterceptor
                     this.jwtService.setTokens(response.token, response.refresh_token);
                     this.refreshTokenRequest$ = null;
                     return response;
+                }),
+                catchError(error => {
+                    this.jwtService.clear();
+                    this.refreshTokenRequest$ = null;
+                    return of(null)
                 }),
                 shareReplay(1)
             );
