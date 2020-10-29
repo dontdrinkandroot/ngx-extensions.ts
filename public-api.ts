@@ -17,9 +17,9 @@ export * from './src/visibility/visibility.service';
 
 export * from './src/http/with-credentials-interceptor.service';
 export * from './src/http/url-info';
-export * from './src/http/redirect-to-login-interceptor.service'
+export * from './src/http/redirect-to-login-interceptor.service';
 
 export * from './src/jwt/jwt-interceptor.service';
 export * from './src/jwt/jwt.service';
-export * from './src/jwt/jwt-refresh-token-interceptor.service'
+export * from './src/jwt/jwt-refresh-token-interceptor.service';
 export * from './src/jwt/jwt-token-response';

@@ -19,11 +19,11 @@ export class ScrollService
             });
     }
 
-    public restore()
+    public restore(): void
     {
         const url = this.router.url;
         if (this.scrollPositionMap.has(url)) {
-            /* Restore after timeout so rendering is done */
+            /* Restore after timeout so rendering was completed */
             setTimeout(() => {
                 this.viewportScroller.scrollToPosition(this.scrollPositionMap.get(url));
             }, 1);

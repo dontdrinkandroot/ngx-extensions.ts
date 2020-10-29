@@ -36,9 +36,7 @@ export class CookieService
         name = encodeURIComponent(name);
 
         const regExp: RegExp = this.getCookieRegExp(name);
-        const exists: boolean = regExp.test(this.document.cookie);
-
-        return exists;
+        return regExp.test(this.document.cookie);
     }
 
     /**

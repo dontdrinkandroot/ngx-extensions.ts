@@ -6,8 +6,8 @@ export class CollectionUtils
      */
     public static mapByProperty<V>(entries: Array<V>, property: string): Map<any, V>
     {
-        let map = new Map<any, V>();
-        for (let entry of entries) {
+        const map = new Map<any, V>();
+        for (const entry of entries) {
             map.set(entry[property], entry);
         }
 
@@ -20,9 +20,9 @@ export class CollectionUtils
      */
     public static mapArrayByProperty<V>(entries: Array<V>, property: string): Map<any, V[]>
     {
-        let map = new Map<any, V[]>();
-        for (let entry of entries) {
-            let value = entry[property];
+        const map = new Map<any, V[]>();
+        for (const entry of entries) {
+            const value = entry[property];
             if (!map.has(value)) {
                 map.set(value, []);
             }

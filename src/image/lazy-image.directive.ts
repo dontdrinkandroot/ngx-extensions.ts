@@ -48,7 +48,7 @@ export class LazyImageDirective implements OnChanges
 
     @HostListener('window:resize', ['$event'])
     @Debounce()
-    public windowResized($event: Event)
+    public windowResized($event: Event): void
     {
         this.displayed = false;
         this.check();
@@ -56,7 +56,7 @@ export class LazyImageDirective implements OnChanges
 
     @HostListener('window:scroll', ['$event'])
     @Limit()
-    public windowScroll($event: Event)
+    public windowScroll($event: Event): void
     {
         this.check();
     }
@@ -71,7 +71,7 @@ export class LazyImageDirective implements OnChanges
         this.check();
     }
 
-    private check()
+    private check(): void
     {
         if (this.element.nativeElement.parentElement.offsetWidth > 0) {
             this.doCheck();
@@ -80,7 +80,7 @@ export class LazyImageDirective implements OnChanges
         }
     }
 
-    private doCheck()
+    private doCheck(): void
     {
         if (this.displayed || this.isHidden(this.element.nativeElement)) {
             return;
@@ -143,7 +143,7 @@ export class LazyImageDirective implements OnChanges
         };
     }
 
-    private isHidden(element)
+    private isHidden(element): boolean
     {
         return window.getComputedStyle(element).display === 'none';
     }

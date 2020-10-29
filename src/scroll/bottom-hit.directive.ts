@@ -6,7 +6,7 @@ import {Limit} from '../methoddecorator/limit';
 })
 export class BottomHitDirective
 {
-    public offset: number = 1000;
+    public offset = 1000;
 
     @Output()
     public onWindowBottomHit = new EventEmitter();
@@ -20,19 +20,19 @@ export class BottomHitDirective
 
     @HostListener('scroll', ['$event'])
     @Limit()
-    public scrolled($event: Event)
+    public scrolled($event: Event): void
     {
         this.elementScrollEvent($event);
     }
 
     @HostListener('window:scroll', ['$event'])
     @Limit()
-    public windowScrolled($event: Event)
+    public windowScrolled($event: Event): void
     {
         this.windowScrollEvent($event);
     }
 
-    protected windowScrollEvent($event: Event)
+    protected windowScrollEvent($event: Event): void
     {
         const pageHeight = Math.max(
             document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -42,23 +42,19 @@ export class BottomHitDirective
         const viewportHeight = document.documentElement.clientHeight;
         const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
         const distanceToBottom = pageHeight - (scrollPosition + viewportHeight);
-        // console.log('pageHeight', pageHeight, 'viewportHeight', viewportHeight, 'scrollPosition', scrollPosition,'distanceToBottom', distanceToBottom);
         if (distanceToBottom < this.offset) {
             this.onWindowBottomHit.emit();
         }
     }
 
-    protected elementScrollEvent($event: Event)
+    protected elementScrollEvent($event: Event): void
     {
-        // console.log('Scrolling Element');
-        const target = <HTMLElement>$event.target;
+        const target = $event.target as HTMLElement;
         const scrollPosition = target.scrollHeight - target.scrollTop;
         const offsetHeight = target.offsetHeight;
         const isReachingBottom = (scrollPosition - offsetHeight) < this.offset;
         if (isReachingBottom) {
             this.onElementBottomHit.emit();
         }
-        // const emitValue: ScrollEvent = {isReachingBottom, originalEvent: $event, isWindowEvent: false};
-        // this.onScroll.emit(emitValue);
     }
 }
