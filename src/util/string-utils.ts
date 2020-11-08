@@ -31,4 +31,13 @@ export class StringUtils
         }
         return uri + hash;  // finally append the hash as well
     }
+
+    public static createRandomString(lengthOfCode: number, possible: string): string
+    {
+        let text = '';
+        for (let i = 0; i < lengthOfCode; i++) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
+    }
 }
