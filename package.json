@@ -4,7 +4,10 @@
     "scripts": {
         "ng": "ng"
     },
-    "peerDependencies": {},
+    "peerDependencies": {
+        "@angular/common": "^12.0",
+        "@angular/core": "^12.0"
+    },
     "dependencies": {
         "tslib": "^2.3.1"
     },
