@@ -1,5 +1,5 @@
 import {HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {Inject, Injectable} from '@angular/core';
 import {catchError, map, shareReplay, switchMap} from 'rxjs/operators';
 import {JwtTokenResponse} from './jwt-token-response';
@@ -9,7 +9,7 @@ import {DDR_JWT_REFRESH_TOKEN_URL} from '../ddr-extensions.module';
 @Injectable()
 export class JwtRefreshTokenInterceptor implements HttpInterceptor
 {
-    private refreshTokenRequest$: Observable<JwtTokenResponse>;
+    private refreshTokenRequest$: Observable<JwtTokenResponse> | null = null;
 
     constructor(
         private jwtService: JwtService,
@@ -40,8 +40,7 @@ export class JwtRefreshTokenInterceptor implements HttpInterceptor
     private getRefreshTokenRequest(refreshToken: string): Observable<JwtTokenResponse>
     {
         if (null == this.refreshTokenRequest$) {
-
-            const refreshTokenRequest = this.httpClient.post<JwtTokenResponse>(this.jwtRefreshTokenUrl, {refresh_token: refreshToken}).pipe(
+            this.refreshTokenRequest$ = this.httpClient.post<JwtTokenResponse>(this.jwtRefreshTokenUrl, {refresh_token: refreshToken}).pipe(
                 map(response => {
                     this.jwtService.setTokens(response.token, response.refresh_token);
                     this.refreshTokenRequest$ = null;
@@ -50,12 +49,10 @@ export class JwtRefreshTokenInterceptor implements HttpInterceptor
                 catchError(error => {
                     this.jwtService.clear();
                     this.refreshTokenRequest$ = null;
-                    return of(null);
+                    return throwError(error)
                 }),
                 shareReplay(1)
             );
-            this.refreshTokenRequest$ = refreshTokenRequest;
-            return refreshTokenRequest;
         }
 
         return this.refreshTokenRequest$;

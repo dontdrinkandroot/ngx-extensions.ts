@@ -10,14 +10,10 @@ import {DOCUMENT} from '@angular/common';
 })
 export class CookieService
 {
-    private documentIsAccessible: boolean;
+    private readonly documentIsAccessible: boolean;
 
     constructor(
-        // The type `Document` may not be used here. Although a fix is on its way,
-        // we will go with `any` for now to support Angular 2.4.x projects.
-        // Issue: https://github.com/angular/angular/issues/12631
-        // Fix: https://github.com/angular/angular/pull/14894
-        @Inject(DOCUMENT) private document: any
+        @Inject(DOCUMENT) private document: Document
     )
     {
         // To avoid issues with server side prerendering, check if `document` is defined.
@@ -47,8 +43,9 @@ export class CookieService
         if (this.documentIsAccessible && this.check(name)) {
             name = encodeURIComponent(name);
 
-            const regExp: RegExp = this.getCookieRegExp(name);
-            const result: RegExpExecArray = regExp.exec(this.document.cookie);
+            const regExp = this.getCookieRegExp(name);
+            const result = regExp.exec(this.document.cookie);
+            if (null == result) return ''
 
             return decodeURIComponent(result[1]);
         } else {
@@ -72,6 +69,7 @@ export class CookieService
                 const currentCookie: Array<string> = split[i].split('=');
 
                 currentCookie[0] = currentCookie[0].replace(/^ /, '');
+                // @ts-ignore
                 cookies[decodeURIComponent(currentCookie[0])] = decodeURIComponent(currentCookie[1]);
             }
         }
@@ -165,7 +163,7 @@ export class CookieService
      */
     private getCookieRegExp(name: string): RegExp
     {
-        const escapedName: string = name.replace(/([\[\]\{\}\(\)\|\=\;\+\?\,\.\*\^\$])/ig, '\\$1');
+        const escapedName: string = name.replace(/([\[\]{}()|=;+?,.*^$])/ig, '\\$1');
 
         return new RegExp('(?:^' + escapedName + '|;\\s*' + escapedName + ')=(.*?)(?:;|$)', 'g');
     }

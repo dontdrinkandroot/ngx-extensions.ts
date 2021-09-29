@@ -7,16 +7,15 @@
         "declaration": true,
         "declarationMap": true,
         "inlineSources": true,
-        "types": [],
+        "types": [
+            "node"
+        ],
         "lib": [
             "dom",
             "es2018"
         ]
     },
     "angularCompilerOptions": {
-        "skipTemplateCodegen": true,
-        "strictMetadataEmit": true,
-        "enableResourceInlining": true,
         "preserveSymlinks": true
     },
     "exclude": [

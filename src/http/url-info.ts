@@ -1,34 +1,37 @@
 export class UrlInfo
 {
-    protocol: string;
-    host: string;
-    hostname: string;
-    port: string;
-    pathname: string;
-    hash: string;
-    search: string;
+    protected constructor(
+        public readonly protocol: string,
+        public readonly host: string,
+        public readonly hostname: string,
+        public readonly port: number,
+        public readonly pathname: string,
+        public readonly hash: string,
+        public readonly search: string
+    )
+    {
+    }
 
     public static parse(urlString: string): UrlInfo
     {
         const parser = document.createElement('a');
         parser.href = urlString;
 
-        const urlInfo: UrlInfo = new UrlInfo();
-        urlInfo.protocol = parser.protocol;
-        urlInfo.host = parser.host;
-        urlInfo.hostname = parser.hostname;
-        urlInfo.port = parser.port;
-        urlInfo.pathname = parser.pathname;
-        urlInfo.hash = parser.hash;
-        urlInfo.search = parser.search;
-
-        return urlInfo;
+        return new UrlInfo(
+            parser.protocol,
+            parser.host,
+            parser.hostname,
+            +parser.port,
+            parser.pathname,
+            parser.hash,
+            parser.search,
+        );
     }
 
     public getRoot(): string
     {
         let root = this.protocol + '//' + this.hostname;
-        if (this.port != null && this.port !== '' && this.port !== '80') {
+        if (this.port != null && this.port !== 80) {
             root += ':' + this.port;
         }
 

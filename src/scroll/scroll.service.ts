@@ -25,7 +25,8 @@ export class ScrollService
         if (this.scrollPositionMap.has(url)) {
             /* Restore after timeout so rendering was completed */
             setTimeout(() => {
-                this.viewportScroller.scrollToPosition(this.scrollPositionMap.get(url));
+                let scrollPosition = this.scrollPositionMap.get(url);
+                if (null != scrollPosition) this.viewportScroller.scrollToPosition(scrollPosition);
             }, 1);
         }
     }

@@ -1,14 +1,15 @@
+import {ObjectUtils} from './object-utils';
+
 export class CollectionUtils
 {
     /**
      * Maps an array into a Map by a specific property which should be unique.
-     * TODO: Maybe there is something like that in typescript, couldn't find it yet.
      */
-    public static mapByProperty<V>(entries: Array<V>, property: string): Map<any, V>
+    public static mapByProperty<V extends object, K extends keyof V>(entries: Array<V>, property: K): Map<any, V>
     {
         const map = new Map<any, V>();
         for (const entry of entries) {
-            map.set(entry[property], entry);
+            map.set(ObjectUtils.getProperty(entry, property), entry);
         }
 
         return map;
@@ -16,17 +17,15 @@ export class CollectionUtils
 
     /**
      * Maps an array into a Map by a specified property and aggregates them into an array.
-     * TODO: Maybe there is something like that in typescript, couldn't find it yet.
      */
-    public static mapArrayByProperty<V>(entries: Array<V>, property: string): Map<any, V[]>
+    public static mapArrayByProperty<V extends object, K extends keyof V>(entries: Array<V>, property: K): Map<any, V[]>
     {
         const map = new Map<any, V[]>();
         for (const entry of entries) {
-            const value = entry[property];
-            if (!map.has(value)) {
-                map.set(value, []);
-            }
-            map.get(value).push(entry);
+            const value = ObjectUtils.getProperty(entry, property);
+            const existingEntries = map.get(value) ?? []
+            existingEntries.push(entry)
+            map.set(value, existingEntries)
         }
 
         return map;

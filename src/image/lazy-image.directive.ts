@@ -18,10 +18,10 @@ import {Limit} from '../methoddecorator/limit';
 export class LazyImageDirective implements OnChanges
 {
     @Input('ddrLazyImage')
-    public src: string;
+    public src!: string;
 
     @Input()
-    public objectFit = 'contain';
+    public objectFit: 'cover' | 'contain' = 'contain';
 
     @Input()
     public offset = 1000;
@@ -30,17 +30,17 @@ export class LazyImageDirective implements OnChanges
     public hostSrc = 'assets/placeholder.gif';
 
     @HostBinding('style.width.px')
-    public hostStyleWidthPx: number;
+    public hostStyleWidthPx!: number;
 
     @HostBinding('style.height.px')
-    public hostStyleHeightPx: number;
+    public hostStyleHeightPx!: number;
 
     @HostBinding('style.object-fit')
     public hostStyleObjectFit = 'contain';
 
     private displayed = false;
 
-    private maxLoadedDimension = null;
+    private maxLoadedDimension: { width: number, height: number } | null = null;
 
     constructor(private element: ElementRef, private changeDetectorRef: ChangeDetectorRef)
     {
@@ -94,8 +94,8 @@ export class LazyImageDirective implements OnChanges
 
             if (
                 this.maxLoadedDimension != null
-                && this.maxLoadedDimension.width >= dimension.width
-                && this.maxLoadedDimension.height >= dimension.height
+                && this.maxLoadedDimension!.width >= dimension.width
+                && this.maxLoadedDimension!.height >= dimension.height
             ) {
                 // console.log('has smaller dimension');
                 return;
@@ -116,7 +116,7 @@ export class LazyImageDirective implements OnChanges
         }
     }
 
-    private isInsideViewport(element, threshold: number): boolean
+    private isInsideViewport(element: HTMLElement, threshold: number): boolean
     {
         const ownerDocument = element.ownerDocument;
         const documentTop = window.pageYOffset || ownerDocument.body.scrollTop;
@@ -143,7 +143,7 @@ export class LazyImageDirective implements OnChanges
         };
     }
 
-    private isHidden(element): boolean
+    private isHidden(element: HTMLElement): boolean
     {
         return window.getComputedStyle(element).display === 'none';
     }

@@ -8,7 +8,7 @@ import {DDR_LOGIN_PATH} from '../ddr-extensions.module';
 @Injectable()
 export class RedirectToLoginInterceptor implements HttpInterceptor
 {
-    constructor(private router: Router, @Inject(DDR_LOGIN_PATH) private loginPath)
+    constructor(private router: Router, @Inject(DDR_LOGIN_PATH) private loginPath: string)
     {
     }
 

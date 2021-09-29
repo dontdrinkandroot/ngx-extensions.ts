@@ -9,12 +9,12 @@ export class JwtService
     /**
      * The current token.
      */
-    private token;
+    private token: string | null = null;
 
     /**
      * The expiry of the current token.
      */
-    private tokenExpiry;
+    private tokenExpiry: number | null = null;
 
     constructor(@Inject(DDR_STORAGE_PREFIX) private storagePrefix: string)
     {

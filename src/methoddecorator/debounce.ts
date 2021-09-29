@@ -1,13 +1,14 @@
+import Timeout = NodeJS.Timeout;
+
 export function Debounce(delay: number = 250): MethodDecorator
 {
-    return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+    let timeoutReference: Timeout | undefined = undefined
 
+    return (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
         const original = descriptor.value;
-        const key = `__timeout__${propertyKey}`;
-
-        descriptor.value = function (...args) {
-            clearTimeout(this[key]);
-            this[key] = setTimeout(() => original.apply(this, args), delay);
+        descriptor.value = function (...args: any) {
+            if (null != timeoutReference) clearTimeout(timeoutReference);
+            timeoutReference = setTimeout(() => original.apply(this, args), delay);
         };
 
         return descriptor;
