@@ -21,7 +21,7 @@ export class UrlInfo
             parser.protocol,
             parser.host,
             parser.hostname,
-            +parser.port,
+            parser.port === '' ? 80 : +parser.port,
             parser.pathname,
             parser.hash,
             parser.search,
@@ -31,9 +31,7 @@ export class UrlInfo
     public getRoot(): string
     {
         let root = this.protocol + '//' + this.hostname;
-        if (this.port != null && this.port !== 80) {
-            root += ':' + this.port;
-        }
+        if (this.port !== 80) root += ':' + this.port;
 
         return root;
     }
