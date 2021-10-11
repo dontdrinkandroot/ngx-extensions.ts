@@ -34,7 +34,7 @@ jobs:
                 run: yarn run ng test --watch=false --browsers=ChromeHeadlessCustom
             -   name: Build
                 if: github.event_name == 'release' && github.event.action == 'published'
-                run: yarn run ng build --prod
+                run: yarn run ng build --configuration production
             -   name: Archive build
                 if: github.event_name == 'release' && github.event.action == 'published'
                 uses: actions/upload-artifact@v1
