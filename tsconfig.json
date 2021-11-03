@@ -3,6 +3,11 @@
     "compilerOptions": {
         "baseUrl": "./",
         "outDir": "./dist/out-tsc",
+        "paths": {
+            "@dontdrinkandroot/ngx-extensions": [
+                "dist"
+            ]
+        },
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "noImplicitReturns": true,
@@ -18,12 +23,7 @@
         "lib": [
             "es2018",
             "dom"
-        ],
-        "paths": {
-            "@dontdrinkandroot/ngx-extensions": [
-                "dist"
-            ]
-        }
+        ]
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
