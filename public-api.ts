@@ -8,6 +8,7 @@ export * from './src/util/collection-utils';
 export * from './src/util/string-utils';
 export * from './src/util/object-utils';
 export * from './src/util/number-utils';
+export * from './src/util/type-utils';
 export * from './src/scroll/scroll.service';
 export * from './src/methoddecorator/debounce';
 export * from './src/methoddecorator/limit';
