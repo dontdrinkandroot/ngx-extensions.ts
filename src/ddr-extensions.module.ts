@@ -3,8 +3,8 @@ import {LazyImageDirective} from './image/lazy-image.directive';
 import {BottomHitDirective} from './scroll/bottom-hit.directive';
 import {LoggerService} from './logger/logger.service';
 import {ConsoleLoggerService} from './logger/console-logger.service';
-
-export const DDR_STORAGE_PREFIX = new InjectionToken<string>('DDR_STORAGE_PREFIX');
+import {DDR_STORAGE_PREFIX, StorageService} from './storage/storage.service';
+import {LocalStorageService} from './storage/local-storage.service';
 
 export const DDR_JWT_REFRESH_TOKEN_URL = new InjectionToken<string>('DDR_JWT_REFRESH_TOKEN_URL');
 
@@ -24,6 +24,14 @@ export const DDR_LOGIN_PATH = new InjectionToken<string>('DDR_LOGIN_PATH');
         {
             provide: LoggerService,
             useClass: ConsoleLoggerService
+        },
+        {
+            provide: DDR_STORAGE_PREFIX,
+            useValue: 'ddr'
+        },
+        {
+            provide: StorageService,
+            useClass: LocalStorageService
         },
     ],
     exports: [

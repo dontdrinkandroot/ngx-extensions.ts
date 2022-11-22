@@ -24,6 +24,8 @@ export * from './src/oauth/oauth2.module';
 export * from './src/oauth/oauth2.service';
 export * from './src/oauth/oauth2-error';
 
+export * from './src/storage/storage.service';
+
 export * from './src/jwt/jwt-interceptor.service';
 export * from './src/jwt/jwt.service';
 export * from './src/jwt/jwt-refresh-token-interceptor.service';

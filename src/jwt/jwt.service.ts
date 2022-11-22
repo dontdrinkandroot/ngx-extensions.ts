@@ -1,5 +1,5 @@
-import {Inject, Injectable} from '@angular/core';
-import {DDR_STORAGE_PREFIX} from '../ddr-extensions.module';
+import {Injectable} from '@angular/core';
+import {StorageService} from '../storage/storage.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +16,9 @@ export class JwtService
      */
     private tokenExpiry: number | null = null;
 
-    constructor(@Inject(DDR_STORAGE_PREFIX) private storagePrefix: string)
+    constructor(
+        private storageService: StorageService,
+    )
     {
     }
 
@@ -26,7 +28,7 @@ export class JwtService
     public setTokens(token: string, refreshToken: string): void
     {
         this.setToken(token);
-        localStorage.setItem(this.getRefreshTokenStorageKey(), refreshToken);
+        this.storageService.store(this.getRefreshTokenStorageKey(), refreshToken)
     }
 
     /**
@@ -53,7 +55,7 @@ export class JwtService
      */
     public getRefreshToken(): string | null
     {
-        return localStorage.getItem(this.getRefreshTokenStorageKey());
+        return this.storageService.retrieve(this.getRefreshTokenStorageKey())
     }
 
     /**
@@ -82,11 +84,11 @@ export class JwtService
     {
         this.token = null;
         this.tokenExpiry = null;
-        localStorage.removeItem(this.getRefreshTokenStorageKey());
+        this.storageService.remove(this.getRefreshTokenStorageKey())
     }
 
     private getRefreshTokenStorageKey(): string
     {
-        return this.storagePrefix + '.jwt.refresh_token';
+        return 'jwt.refresh_token';
     }
 }
