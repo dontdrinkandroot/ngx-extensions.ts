@@ -1,6 +1,8 @@
 import {InjectionToken, NgModule} from '@angular/core';
 import {LazyImageDirective} from './image/lazy-image.directive';
 import {BottomHitDirective} from './scroll/bottom-hit.directive';
+import {LoggerService} from './logger/logger.service';
+import {ConsoleLoggerService} from './logger/console-logger.service';
 
 export const DDR_STORAGE_PREFIX = new InjectionToken<string>('DDR_STORAGE_PREFIX');
 
@@ -18,7 +20,11 @@ export const DDR_LOGIN_PATH = new InjectionToken<string>('DDR_LOGIN_PATH');
         {
             provide: DDR_LOGIN_PATH,
             useValue: '/login'
-        }
+        },
+        {
+            provide: LoggerService,
+            useClass: ConsoleLoggerService
+        },
     ],
     exports: [
         LazyImageDirective,
