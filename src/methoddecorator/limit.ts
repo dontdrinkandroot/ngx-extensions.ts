@@ -1,6 +1,6 @@
 export function Limit(rate: number = 250): MethodDecorator
 {
-    let timeoutReference: NodeJS.Timeout | undefined = undefined
+    let timeoutReference: any = null;
 
     return (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
         const original = descriptor.value;

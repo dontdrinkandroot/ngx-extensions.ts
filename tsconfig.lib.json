@@ -3,23 +3,15 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "outDir": "out-tsc/lib",
-        "target": "es2015",
         "declaration": true,
         "declarationMap": true,
         "inlineSources": true,
-        "types": [
-            "node"
-        ],
-        "lib": [
-            "dom",
-            "es2018"
-        ]
+        "types": []
     },
     "angularCompilerOptions": {
         "preserveSymlinks": true
     },
     "exclude": [
-        "test.ts",
         "**/*.spec.ts"
     ]
 }
