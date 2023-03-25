@@ -1,46 +1,46 @@
-import {LoggerService} from './logger.service';
+import {Logger} from './logger.service';
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class ConsoleLoggerService extends LoggerService
+export class ConsoleLogger extends Logger
 {
     /**
      * @override
      */
-    public debug(message?: any, ...optionalParams: any[]): void
+    public debug(...data: any[]): void
     {
         if (this.debugEnabled) {
-            console.debug(message, optionalParams);
+            console.debug(...data);
         }
     }
 
     /**
      * @override
      */
-    public info(message?: any, ...optionalParams: any[]): void
+    public info(...data: any[]): void
     {
         if (this.infoEnabled) {
-            console.info(message, optionalParams);
+            console.info(...data);
         }
     }
 
     /**
      * @override
      */
-    public warn(message?: any, ...optionalParams: any[]): void
+    public warn(...data: any[]): void
     {
         if (this.warnEnabled) {
-            console.warn(message, optionalParams);
+            console.warn(...data);
         }
     }
 
     /**
      * @override
      */
-    public error(message?: any, ...optionalParams: any[]): void
+    public error(...data: any[]): void
     {
         if (this.errorEnabled) {
-            console.error(message, optionalParams);
+            console.error(...data);
         }
     }
 }

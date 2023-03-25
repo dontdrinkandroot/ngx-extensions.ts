@@ -5,7 +5,7 @@ import {debounceTime, distinctUntilChanged, map, shareReplay, startWith} from 'r
 @Injectable({providedIn: 'root'})
 export class VisibilityService
 {
-    private visibility$: Observable<boolean>;
+    private readonly visibility$: Observable<boolean>;
 
     constructor()
     {

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {StorageService} from '../storage/storage.service';
+import {Logger} from '../logger/logger.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +19,7 @@ export class JwtService
 
     constructor(
         private storageService: StorageService,
+        private loggerService: Logger
     )
     {
     }
@@ -39,7 +41,7 @@ export class JwtService
         this.token = token;
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
         this.tokenExpiry = decodedToken.exp * 1000;
-        console.log('New refresh token, expiry', new Date(this.tokenExpiry));
+        this.loggerService.info('New refresh token, expiry', new Date(this.tokenExpiry));
     }
 
     /**

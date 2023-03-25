@@ -9,6 +9,7 @@ import {DDR_OAUTH2_CONFIG, OAuth2Config} from './oauth2-config';
 import {OAuth2Error} from './oauth2-error';
 import {TypeUtils} from '../util/type-utils';
 import {StringUtils} from '../util/string-utils';
+import {Logger} from '../logger/logger.service';
 
 @Injectable()
 export class OAuth2Service
@@ -30,6 +31,7 @@ export class OAuth2Service
     constructor(
         private route: ActivatedRoute,
         private httpClient: HttpClient,
+        private loggerService: Logger,
         @Inject(DDR_OAUTH2_CONFIG) private config: OAuth2Config
     )
     {
@@ -112,7 +114,7 @@ export class OAuth2Service
     {
         if (null == this.refreshTokenRequest$) {
 
-            console.log('Performing token refesh');
+            this.loggerService.info('Performing token refesh');
 
             const params = new HttpParams()
                 .set('grant_type', 'refresh_token')
@@ -120,7 +122,11 @@ export class OAuth2Service
                 .set('client_id', this.config.clientId);
 
             this.refreshTokenRequest$ = this.httpClient.post<TokenResponse>(this.config.tokenUri, params).pipe(
-                map(tokenResponse => this.processTokenResponse(tokenResponse)),
+                map(tokenResponse => {
+                    const token = this.processTokenResponse(tokenResponse);
+                    this.refreshTokenRequest$ = null;
+                    return token;
+                }),
                 catchError(error => {
                     this.accessTokenString = null;
                     this.accessToken = null;
@@ -140,7 +146,7 @@ export class OAuth2Service
         localStorage.removeItem(OAuth2Service.STORAGE_KEY_CHALLENGE);
         this.accessTokenString = tokenResponse.access_token;
         this.accessToken = JSON.parse(atob(tokenResponse.access_token.split('.')[1]));
-        console.log('Access Token Expiry', new Date(this.accessToken!.exp * 1000));
+        this.loggerService.info('Access Token Expiry', new Date(this.accessToken!.exp * 1000));
         localStorage.setItem(OAuth2Service.STORAGE_KEY_REFRESH_TOKEN, tokenResponse.refresh_token);
 
         return this.accessToken!;

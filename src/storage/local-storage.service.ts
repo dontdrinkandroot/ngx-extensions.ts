@@ -1,13 +1,13 @@
-import {DDR_STORAGE_PREFIX, StorageService} from "./storage.service";
-import {Inject, Injectable} from "@angular/core";
-import {LoggerService} from "../logger/logger.service";
+import {DDR_STORAGE_PREFIX, StorageService} from './storage.service';
+import {Inject, Injectable} from '@angular/core';
+import {Logger} from '../logger/logger.service';
 
 @Injectable()
 export class LocalStorageService extends StorageService
 {
     constructor(
         @Inject(DDR_STORAGE_PREFIX) protected storagePrefix: string,
-        protected logger: LoggerService
+        protected logger: Logger
     )
     {
         super();
