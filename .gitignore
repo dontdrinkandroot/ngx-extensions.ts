@@ -4,3 +4,4 @@
 /.idea
 /yarn-error.log
 /.angular/cache
+/.nx/cache
