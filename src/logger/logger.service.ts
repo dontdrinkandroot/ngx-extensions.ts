@@ -8,11 +8,11 @@ export abstract class Logger
 
     public errorEnabled = true;
 
-    public abstract debug(...data: any[]): void;
+    public abstract debug(...data: unknown[]): void;
 
-    public abstract info(...data: any[]): void;
+    public abstract info(...data: unknown[]): void;
 
-    public abstract warn(...data: any[]): void;
+    public abstract warn(...data: unknown[]): void;
 
-    public abstract error(...data: any[]): void;
+    public abstract error(...data: unknown[]): void;
 }

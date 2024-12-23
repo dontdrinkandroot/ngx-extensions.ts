@@ -9,14 +9,10 @@ export class BottomHitDirective
     public offset = 1000;
 
     @Output()
-    public onWindowBottomHit = new EventEmitter();
+    public windowBottomHit = new EventEmitter();
 
     @Output()
-    private onElementBottomHit = new EventEmitter();
-
-    constructor()
-    {
-    }
+    private elementBottomHit = new EventEmitter();
 
     @HostListener('scroll', ['$event'])
     @Limit()
@@ -27,12 +23,12 @@ export class BottomHitDirective
 
     @HostListener('window:scroll', ['$event'])
     @Limit()
-    public windowScrolled($event: Event): void
+    public windowScrolled(): void
     {
-        this.windowScrollEvent($event);
+        this.windowScrollEvent();
     }
 
-    protected windowScrollEvent($event: Event): void
+    protected windowScrollEvent(): void
     {
         const pageHeight = Math.max(
             document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -40,10 +36,10 @@ export class BottomHitDirective
             document.body.clientHeight, document.documentElement.clientHeight
         );
         const viewportHeight = document.documentElement.clientHeight;
-        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
         const distanceToBottom = pageHeight - (scrollPosition + viewportHeight);
         if (distanceToBottom < this.offset) {
-            this.onWindowBottomHit.emit();
+            this.windowBottomHit.emit();
         }
     }
 
@@ -54,7 +50,7 @@ export class BottomHitDirective
         const offsetHeight = target.offsetHeight;
         const isReachingBottom = (scrollPosition - offsetHeight) < this.offset;
         if (isReachingBottom) {
-            this.onElementBottomHit.emit();
+            this.elementBottomHit.emit();
         }
     }
 }

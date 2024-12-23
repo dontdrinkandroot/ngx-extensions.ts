@@ -73,7 +73,7 @@ export class JwtService
      * Checks if the current token is about to expire.
      * @param expiryMs
      */
-    public isAboutToExpire(expiryMs: number = 60000): boolean
+    public isAboutToExpire(expiryMs = 60000): boolean
     {
         const now = new Date().getTime();
         return null == this.tokenExpiry || this.tokenExpiry - expiryMs < now;

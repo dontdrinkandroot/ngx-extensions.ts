@@ -12,16 +12,16 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout
-                uses: actions/checkout@v2
-            -   name: Use Node 18.x
-                uses: actions/setup-node@v1
+                uses: actions/checkout@v4
+            -   name: Use Node LTS
+                uses: actions/setup-node@v4
                 with:
-                    node-version: '18.x'
+                    node-version: 'lts/*'
             -   name: Get yarn cache directory path
                 id: yarn-cache-dir-path
-                run: echo "::set-output name=dir::$(yarn cache dir)"
+                run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
             -   name: Cache Yarn
-                uses: actions/cache@v2
+                uses: actions/cache@v4
                 id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
                 with:
                     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -30,6 +30,8 @@ jobs:
                         ${{ runner.os }}-yarn-
             -   name: Install dependencies
                 run: yarn install
+            -   name: Lint
+                run: yarn run ng lint
             -   name: Run Tests
                 run: yarn run ng test --watch=false --browsers=ChromeHeadlessCustom
             -   name: Build
@@ -37,7 +39,7 @@ jobs:
                 run: yarn run ng build --configuration production
             -   name: Archive build
                 if: github.event_name == 'release' && github.event.action == 'published'
-                uses: actions/upload-artifact@v1
+                uses: actions/upload-artifact@v4
                 with:
                     name: deploy_dist
                     path: dist
@@ -46,13 +48,13 @@ jobs:
         runs-on: ubuntu-latest
         if: github.event_name == 'release' && github.event.action == 'published'
         steps:
-            -   name: Use Node 18.x
-                uses: actions/setup-node@v1
+            -   name: Use Node LTS
+                uses: actions/setup-node@v4
                 with:
-                    node-version: '18.x'
+                    node-version: 'lts/*'
                     registry-url: 'https://registry.npmjs.org'
             -   name: Download build
-                uses: actions/download-artifact@v2
+                uses: actions/download-artifact@v4
                 with:
                     name: deploy_dist
                     path: .

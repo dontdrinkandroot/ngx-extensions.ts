@@ -8,14 +8,12 @@ import {DOCUMENT} from '@angular/common';
 @Injectable({
     providedIn: 'root'
 })
-export class CookieService
-{
+export class CookieService {
     private readonly documentIsAccessible: boolean;
 
     constructor(
         @Inject(DOCUMENT) private document: Document
-    )
-    {
+    ) {
         // To avoid issues with server side prerendering, check if `document` is defined.
         this.documentIsAccessible = document !== undefined;
     }
@@ -23,8 +21,7 @@ export class CookieService
     /**
      * @param name Cookie name
      */
-    check(name: string): boolean
-    {
+    check(name: string): boolean {
         if (!this.documentIsAccessible) {
             return false;
         }
@@ -38,8 +35,7 @@ export class CookieService
     /**
      * @param name Cookie name
      */
-    get(name: string): string
-    {
+    get(name: string): string {
         if (this.documentIsAccessible && this.check(name)) {
             name = encodeURIComponent(name);
 
@@ -53,28 +49,25 @@ export class CookieService
         }
     }
 
-    getAll(): {}
-    {
+    parse(): Record<string, string> {
         if (!this.documentIsAccessible) {
             return {};
         }
 
-        const cookies: {} = {};
-        const document: any = this.document;
+        const cookieRecord: Record<string, string> = {};
+        const document = this.document;
 
         if (document.cookie && document.cookie !== '') {
-            const split: Array<string> = document.cookie.split(';');
-
-            for (let i = 0; i < split.length; i += 1) {
-                const currentCookie: Array<string> = split[i].split('=');
-
-                currentCookie[0] = currentCookie[0].replace(/^ /, '');
-                // @ts-ignore
-                cookies[decodeURIComponent(currentCookie[0])] = decodeURIComponent(currentCookie[1]);
+            const cookieParts = document.cookie.split(';');
+            for (const currentCookie of cookieParts) {
+                const cookie = currentCookie.split('=');
+                const cookieName = cookie[0].replace(/^ /, '');
+                const cookieValue = cookie[1];
+                cookieRecord[cookieName] = decodeURIComponent(cookieValue);
             }
         }
 
-        return cookies;
+        return cookieRecord;
     }
 
     /**
@@ -92,8 +85,7 @@ export class CookieService
         path?: string,
         domain?: string,
         secure?: boolean
-    ): void
-    {
+    ): void {
         if (!this.documentIsAccessible) {
             return;
         }
@@ -130,8 +122,7 @@ export class CookieService
      * @param path   Cookie path
      * @param domain Cookie domain
      */
-    delete(name: string, path?: string, domain?: string): void
-    {
+    delete(name: string, path?: string, domain?: string): void {
         if (!this.documentIsAccessible) {
             return;
         }
@@ -143,16 +134,15 @@ export class CookieService
      * @param path   Cookie path
      * @param domain Cookie domain
      */
-    deleteAll(path?: string, domain?: string): void
-    {
+    deleteAll(path?: string, domain?: string): void {
         if (!this.documentIsAccessible) {
             return;
         }
 
-        const cookies: any = this.getAll();
+        const cookies = this.parse();
 
         for (const cookieName in cookies) {
-            if (cookies.hasOwnProperty(cookieName)) {
+            if (Object.hasOwn(cookies, cookieName)) {
                 this.delete(cookieName, path, domain);
             }
         }
@@ -161,9 +151,8 @@ export class CookieService
     /**
      * @param name Cookie name
      */
-    private getCookieRegExp(name: string): RegExp
-    {
-        const escapedName: string = name.replace(/([\[\]{}()|=;+?,.*^$])/ig, '\\$1');
+    private getCookieRegExp(name: string): RegExp {
+        const escapedName: string = name.replace(/([[\]{}()|=;+?,.*^$])/ig, '\\$1');
 
         return new RegExp('(?:^' + escapedName + '|;\\s*' + escapedName + ')=(.*?)(?:;|$)', 'g');
     }

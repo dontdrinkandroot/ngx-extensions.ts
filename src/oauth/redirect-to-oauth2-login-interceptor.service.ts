@@ -20,7 +20,7 @@ export class RedirectToOAuth2LoginInterceptor implements HttpInterceptor
     /**
      * @override
      */
-    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
+    public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>>
     {
         return next.handle(req).pipe(catchError((err) => {
 

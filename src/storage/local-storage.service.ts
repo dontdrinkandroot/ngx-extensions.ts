@@ -18,8 +18,8 @@ export class LocalStorageService extends StorageService
      */
     public retrieve<T>(key: string, defaultValue: T | null = null): T | null
     {
-        let fullKey = this.getFullKey(key);
-        let valueJson = localStorage.getItem(fullKey);
+        const fullKey = this.getFullKey(key);
+        const valueJson = localStorage.getItem(fullKey);
         if (null == valueJson) {
             return defaultValue;
         }

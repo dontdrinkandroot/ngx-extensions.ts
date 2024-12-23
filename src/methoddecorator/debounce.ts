@@ -1,10 +1,11 @@
-export function Debounce(delay: number = 250): MethodDecorator
+export function Debounce(delay = 250): MethodDecorator
 {
-    let timeoutReference: any = null;
+    let timeoutReference: ReturnType<typeof setTimeout> | null = null;
 
-    return (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
-        const original = descriptor.value;
-        descriptor.value = function (...args: any) {
+    // eslint-disable-next-line
+    return (target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
+        const original = descriptor.value
+        descriptor.value = function (...args: unknown[]) {
             if (null != timeoutReference) clearTimeout(timeoutReference);
             timeoutReference = setTimeout(() => original.apply(this, args), delay);
         };

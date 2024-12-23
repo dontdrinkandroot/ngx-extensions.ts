@@ -13,7 +13,7 @@ export class JwtInterceptor implements HttpInterceptor
     /**
      * @override
      */
-    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
+    public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>>
     {
         const token = this.jwtService.getToken();
 

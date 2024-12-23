@@ -1,18 +1,8 @@
-import {
-    ChangeDetectorRef,
-    Directive,
-    ElementRef,
-    HostBinding,
-    HostListener,
-    Input,
-    OnChanges,
-    SimpleChanges
-} from '@angular/core';
+import {ChangeDetectorRef, Directive, ElementRef, HostBinding, HostListener, Input, OnChanges,} from '@angular/core';
 import {NumberUtils} from '../util/number-utils';
 import {StringUtils} from '../util/string-utils';
 import {Debounce} from '../methoddecorator/debounce';
 import {Limit} from '../methoddecorator/limit';
-
 
 @Directive({selector: '[ddrLazyImage]'})
 export class LazyImageDirective implements OnChanges
@@ -48,7 +38,7 @@ export class LazyImageDirective implements OnChanges
 
     @HostListener('window:resize', ['$event'])
     @Debounce()
-    public windowResized($event: Event): void
+    public windowResized(): void
     {
         this.displayed = false;
         this.check();
@@ -56,7 +46,7 @@ export class LazyImageDirective implements OnChanges
 
     @HostListener('window:scroll', ['$event'])
     @Limit()
-    public windowScroll($event: Event): void
+    public windowScroll(): void
     {
         this.check();
     }
@@ -64,7 +54,7 @@ export class LazyImageDirective implements OnChanges
     /**
      * @override
      */
-    public ngOnChanges(changes: SimpleChanges): void
+    public ngOnChanges(): void
     {
         this.displayed = false;
         this.maxLoadedDimension = null;
@@ -119,8 +109,8 @@ export class LazyImageDirective implements OnChanges
     private isInsideViewport(element: HTMLElement, threshold: number): boolean
     {
         const ownerDocument = element.ownerDocument;
-        const documentTop = window.pageYOffset || ownerDocument.body.scrollTop;
-        const documentLeft = window.pageXOffset || ownerDocument.body.scrollLeft;
+        const documentTop = window.scrollY || ownerDocument.body.scrollTop;
+        const documentLeft = window.scrollX || ownerDocument.body.scrollLeft;
 
         const documentWidth = window.innerWidth || (ownerDocument.documentElement.clientWidth || document.body.clientWidth);
         const documentHeight = window.innerHeight || (ownerDocument.documentElement.clientHeight || document.body.clientHeight);
@@ -128,7 +118,7 @@ export class LazyImageDirective implements OnChanges
         const leftOffset = element.getBoundingClientRect().left + documentLeft - ownerDocument.documentElement.clientLeft;
 
         const isBelowViewport = documentHeight + documentTop <= topOffset - threshold;
-        const isAtRightOfViewport = documentWidth + window.pageXOffset <= leftOffset - threshold;
+        const isAtRightOfViewport = documentWidth + window.scrollX <= leftOffset - threshold;
         const isAboveViewport = documentTop >= topOffset + threshold + element.offsetHeight;
         const isAtLeftOfViewport = documentLeft >= leftOffset + threshold + element.offsetWidth;
 

@@ -7,7 +7,7 @@ export class ConsoleLogger extends Logger
     /**
      * @override
      */
-    public debug(...data: any[]): void
+    public debug(...data: unknown[]): void
     {
         if (this.debugEnabled) {
             console.debug(...data);
@@ -17,7 +17,7 @@ export class ConsoleLogger extends Logger
     /**
      * @override
      */
-    public info(...data: any[]): void
+    public info(...data: unknown[]): void
     {
         if (this.infoEnabled) {
             console.info(...data);
@@ -27,7 +27,7 @@ export class ConsoleLogger extends Logger
     /**
      * @override
      */
-    public warn(...data: any[]): void
+    public warn(...data: unknown[]): void
     {
         if (this.warnEnabled) {
             console.warn(...data);
@@ -37,7 +37,7 @@ export class ConsoleLogger extends Logger
     /**
      * @override
      */
-    public error(...data: any[]): void
+    public error(...data: unknown[]): void
     {
         if (this.errorEnabled) {
             console.error(...data);

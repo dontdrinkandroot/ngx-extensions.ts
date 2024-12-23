@@ -22,7 +22,7 @@ export class JwtRefreshTokenInterceptor implements HttpInterceptor
     /**
      * @override
      */
-    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
+    public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>>
     {
         if (this.jwtService.isAboutToExpire() && !(req.url === this.jwtRefreshTokenUrl)) {
             const refreshToken = this.jwtService.getRefreshToken();

@@ -4,7 +4,7 @@
     "cli": {
         "packageManager": "yarn",
         "schematicCollections": [
-            "@angular-eslint/schematics"
+            "angular-eslint"
         ],
         "analytics": false
     },
@@ -48,7 +48,8 @@
                         "lintFilePatterns": [
                             "src/**/*.ts",
                             "src/**/*.html"
-                        ]
+                        ],
+                        "eslintConfig": "eslint.config.js"
                     }
                 }
             }

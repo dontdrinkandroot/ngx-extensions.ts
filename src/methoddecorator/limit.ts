@@ -1,10 +1,11 @@
-export function Limit(rate: number = 250): MethodDecorator
+export function Limit(rate = 250): MethodDecorator
 {
-    let timeoutReference: any = null;
+    let timeoutReference: ReturnType<typeof setTimeout> | null = null;
 
-    return (target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
+    // eslint-disable-next-line
+    return (target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
         const original = descriptor.value;
-        descriptor.value = function (...args: any) {
+        descriptor.value = function (...args: unknown[]) {
             if (null == timeoutReference) {
                 timeoutReference = setTimeout(() => {
                     original.apply(this, args);

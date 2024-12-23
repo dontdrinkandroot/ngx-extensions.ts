@@ -98,7 +98,7 @@ export class OAuth2Service
         );
     }
 
-    public isRefreshPossibleAndRequired(req: HttpRequest<any> | null = null): boolean
+    public isRefreshPossibleAndRequired(req: HttpRequest<unknown> | null = null): boolean
     {
         return (
             (null == req || !req.url.endsWith(this.config.tokenUri))

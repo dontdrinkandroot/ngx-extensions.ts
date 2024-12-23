@@ -14,7 +14,7 @@ export class OAuth2RefreshTokenInterceptor implements HttpInterceptor
     /**
      * @override
      */
-    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
+    public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>>
     {
         if (this.oAuth2Service.isRefreshPossibleAndRequired(req)) {
             return this.oAuth2Service.performRefresh().pipe(
