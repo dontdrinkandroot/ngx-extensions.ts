@@ -2,7 +2,8 @@ import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
 import {Limit} from '../methoddecorator/limit';
 
 @Directive({
-    selector: '[ddrBottomHit]'
+    selector: '[ddrBottomHit]',
+    standalone: false
 })
 export class BottomHitDirective
 {

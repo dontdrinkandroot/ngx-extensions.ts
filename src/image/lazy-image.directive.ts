@@ -4,7 +4,10 @@ import {StringUtils} from '../util/string-utils';
 import {Debounce} from '../methoddecorator/debounce';
 import {Limit} from '../methoddecorator/limit';
 
-@Directive({selector: '[ddrLazyImage]'})
+@Directive({
+    selector: '[ddrLazyImage]',
+    standalone: false
+})
 export class LazyImageDirective implements OnChanges
 {
     @Input('ddrLazyImage')

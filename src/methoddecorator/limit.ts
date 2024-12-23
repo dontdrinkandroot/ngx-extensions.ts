@@ -9,7 +9,7 @@ export function Limit(rate = 250): MethodDecorator
             if (null == timeoutReference) {
                 timeoutReference = setTimeout(() => {
                     original.apply(this, args);
-                    timeoutReference = undefined
+                    timeoutReference = null
                 }, rate);
             }
         };
