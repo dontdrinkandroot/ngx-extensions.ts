@@ -4,8 +4,6 @@ import {ConsoleLogger} from './logger/console-logger.service';
 import {DDR_STORAGE_PREFIX, StorageService} from './storage/storage.service';
 import {LocalStorageService} from './storage/local-storage.service';
 
-export const DDR_JWT_REFRESH_TOKEN_URL = new InjectionToken<string>('DDR_JWT_REFRESH_TOKEN_URL');
-
 export const DDR_LOGIN_PATH = new InjectionToken<string>('DDR_LOGIN_PATH');
 
 @NgModule({
