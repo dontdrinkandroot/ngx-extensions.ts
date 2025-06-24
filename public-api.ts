@@ -12,7 +12,6 @@ export * from './src/util/type-utils';
 export * from './src/scroll/scroll.service';
 export * from './src/methoddecorator/debounce';
 export * from './src/methoddecorator/limit';
-export * from './src/image/lazy-image.directive';
 export * from './src/scroll/bottom-hit.directive';
 export * from './src/visibility/visibility.service';
 
