@@ -3,7 +3,6 @@ import {Limit} from '../methoddecorator/limit';
 
 @Directive({
     selector: '[ddrBottomHit]',
-    standalone: false
 })
 export class BottomHitDirective
 {
