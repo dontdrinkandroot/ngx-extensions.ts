@@ -1,15 +1,18 @@
 import {NavigationStart, Router} from '@angular/router';
 import {ViewportScroller} from '@angular/common';
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ScrollService
 {
+    private router = inject(Router);
+    private viewportScroller = inject(ViewportScroller);
+
     private scrollPositionMap: Map<string, [number, number]> = new Map<string, [number, number]>();
 
-    constructor(private router: Router, private viewportScroller: ViewportScroller)
+    constructor()
     {
         this.router.events
             .subscribe(e => {

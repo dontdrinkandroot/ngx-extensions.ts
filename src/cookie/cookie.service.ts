@@ -2,21 +2,17 @@
 // not use `DOCUMENT` injection and therefore doesn't work well with AoT production builds.
 // Package: https://github.com/BCJTI/ng2-cookies
 
-import {Inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CookieService {
-    private readonly documentIsAccessible: boolean;
+    private document = inject<Document>(DOCUMENT);
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document
-    ) {
-        // To avoid issues with server side prerendering, check if `document` is defined.
-        this.documentIsAccessible = document !== undefined;
-    }
+    // To avoid issues with server side prerendering, check if `document` is defined.
+    private readonly documentIsAccessible: boolean = this.document !== undefined;
 
     /**
      * @param name Cookie name
