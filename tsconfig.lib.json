@@ -12,6 +12,9 @@
     "angularCompilerOptions": {
         "preserveSymlinks": true
     },
+    "include": [
+        "src/**/*.ts"
+    ],
     "exclude": [
         "**/*.spec.ts"
     ]

@@ -33,7 +33,7 @@ jobs:
             -   name: Lint
                 run: yarn run ng lint
             -   name: Run Tests
-                run: yarn run ng test --watch=false --browsers=ChromeHeadlessCustom
+                run: yarn run ng test --watch=false --browsers=ChromeHeadless
             -   name: Build
                 if: github.event_name == 'release' && github.event.action == 'published'
                 run: yarn run ng build --configuration production

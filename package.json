@@ -10,38 +10,39 @@
         "lint": "ng lint"
     },
     "peerDependencies": {
-        "@angular/common": "^19",
-        "@angular/core": "^19"
+        "@angular/common": "^20",
+        "@angular/core": "^20"
     },
     "dependencies": {
         "tslib": "^2.3.0"
     },
     "devDependencies": {
-        "@angular/animations": "^19",
-        "@angular/cli": "^19",
-        "@angular/common": "^19",
-        "@angular/compiler": "^19",
-        "@angular/compiler-cli": "^19",
-        "@angular/core": "^19",
-        "@angular/forms": "^19",
-        "@angular/platform-browser": "^19",
-        "@angular/platform-browser-dynamic": "^19",
-        "@angular/router": "^19",
-        "@angular-devkit/build-angular": "^19",
+        "@angular-eslint/builder": "20",
+        "@angular/build": "^20",
+        "@angular/cli": "^20",
+        "@angular/common": "^20",
+        "@angular/compiler": "^20",
+        "@angular/compiler-cli": "^20",
+        "@angular/core": "^20",
+        "@angular/forms": "^20",
+        "@angular/platform-browser": "^20",
+        "@angular/router": "^20",
+        "@eslint/js": "^9.29.0",
         "@types/jasmine": "~5.1.0",
-        "angular-eslint": "^19",
-        "eslint": "^9.16.0",
-        "jasmine-core": "~5.4.0",
+        "angular-eslint": "^20",
+        "eslint": "^9.29.0",
+        "jasmine-core": "~5.7.0",
         "karma": "~6.4.0",
         "karma-chrome-launcher": "~3.2.0",
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.1.0",
-        "ng-packagr": "^19",
+        "ng-packagr": "^20.0.0",
         "rxjs": "~7.8.0",
-        "typescript": "~5.6.2",
-        "typescript-eslint": "8.18.0",
-        "zone.js": "~0.15.0"
+        "typescript": "~5.8.2",
+        "typescript-eslint": "8.34.1",
+        "zone.js": "^0.15.1"
     },
-    "sideEffects": false
+    "sideEffects": false,
+    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
