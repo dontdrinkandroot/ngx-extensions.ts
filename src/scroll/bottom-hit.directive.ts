@@ -22,7 +22,7 @@ export class BottomHitDirective
         this.elementScrollEvent($event);
     }
 
-    @HostListener('window:scroll', ['$event'])
+    @HostListener('window:scroll')
     @Limit()
     public windowScrolled(): void
     {
